@@ -5,7 +5,7 @@
 
 Sass **media queries mixins** for checking **group of devices** (mobile, tablet, laptop, desktop) or **device by name** (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.
 
-##### [Demo](http://mediascreen.gvozdb.ru)
+#### [Demo](http://mediascreen.gvozdb.ru)
 
 
 ## Installation
@@ -97,14 +97,14 @@ There are also common mixins:
 
 ### List of supported devices:
 
-##### Groups
+#### Groups
 
-- Mobiles `mobile` `mobile-portrait` `mobile-landscape` 320-767px
-- Tablets `tablet` `tablet-portrait` `tablet-landscape` 768-1023px
-- Laptops `laptop` `laptop-portrait` `laptop-landscape` 1024-1199px
-- Desktop `desktop` `desktop-portrait` `desktop-landscape` >=1200px
+- Mobiles 320-767px `mobile` `mobile-portrait` `mobile-landscape`
+- Tablets 768-1023px `tablet` `tablet-portrait` `tablet-landscape`
+- Laptops 1024-1199px `laptop` `laptop-portrait` `laptop-landscape`
+- Desktop >=1200px `desktop` `desktop-portrait` `desktop-landscape`
 
-##### Phones
+#### Phones
 
 - iPhone 5, 5s, 5c, SE `iphone5` `iphone5s` `iphone5c` `iphonese`
 - iPhone 6, 6s, 7, 8 `iphone6` `iphone6s` `iphone7` `iphone8`
@@ -113,19 +113,20 @@ There are also common mixins:
 - iPhone XR `iphonexr`
 - iPhone XS Max `iphonexsmax`
 
-##### Tablets
+#### Tablets
 
 - iPad 1, 2, Mini, Air `ipad1` `ipad2` `ipadmini` `ipadair`
 - iPad 3, 4, Pro 9.7" `ipad3` `ipad4` `ipadpro9`
 - iPad Pro 10.5" `ipadpro10`
 - iPad Pro 11.0" `ipadpro11`
 
-##### Laptops
+#### Laptops
 
 - iPad Pro 12.9" `ipadpro12`
 
 _Well, Yes. iPad Pro 12.9" is a laptop because of its size._
 
+---
 
 ### Expanding the list of devices:
 
@@ -163,12 +164,10 @@ $ms-devices: (
 ```
 
 
-### Credits
+## Credits
 - [Pavel Gvozdb][link-author]
 
----
-
-### License
+## License
 This software is open-source licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 [link-author]: https://github.com/gvozdb
