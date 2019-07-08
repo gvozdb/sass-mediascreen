@@ -15,6 +15,7 @@
   "description": "Sass media queries mixins for checking group of devices (mobile, tablet, laptop, desktop) or device by name (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.",
   "files": [
     "_mediascreen.scss",
+    "CHANGELOG.md",
     "README.md"
   ],
   "repository": {
