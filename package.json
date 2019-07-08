@@ -1,0 +1,47 @@
+{
+  "name": "sass-mediascreen",
+  "version": "1.0.2",
+  "homepage": "https://github.com/gvozdb/sass-mediascreen",
+  "author": {
+    "name": "Pavel Gvozdb",
+    "email": "pavelgvozdb@yandex.ru",
+    "web": "https://gvozdb.ru"
+  },
+  "contributors": [{
+    "name": "Pavel Gvozdb",
+    "email": "pavelgvozdb@yandex.ru",
+    "web": "https://gvozdb.ru"
+  }],
+  "description": "Sass media queries mixins for checking group of devices (mobile, tablet, laptop, desktop) or device by name (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.",
+  "files": [
+    "_mediascreen.scss",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gvozdb/sass-mediascreen.git"
+  },
+  "bugs": {
+    "url" : "https://github.com/gvozdb/sass-mediascreen/issues"
+  },
+  "dependencies": {},
+  "keywords": [
+    "css",
+    "sass",
+    "scss",
+    "compass",
+    "mixins",
+    "media",
+    "screen",
+    "queries",
+    "mediascreen",
+    "media-screen",
+    "mediaquery",
+    "media-query",
+    "mediaqueries",
+    "media-queries",
+    "responsive",
+    "adaptive"
+  ],
+  "license": "MIT"
+}

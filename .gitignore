@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+index.php
+/private/
+/private/node_modules/
+/node_modules/

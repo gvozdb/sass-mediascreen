@@ -1,0 +1,488 @@
+// Author: Pavel Gvozdb
+// Web: https://gvozdb.ru/
+// Github: https://github.com/gvozdb/sass-mediascreen
+
+//
+// List of supported devices
+//
+@function _ms-list-devices() {
+    $devices: (
+        // device-width >=320 <768
+        mobile: (
+            group: true,
+            min: 320px,
+            max: 767px,
+        ),
+        mobile-portrait: (
+            group: true,
+            orientation: portrait,
+            min: 320px,
+            max: 767px,
+        ),
+        mobile-landscape: (
+            group: true,
+            orientation: landscape,
+            min: 320px,
+            max: 767px,
+        ),
+
+        // device-width >=768 <1024
+        tablet: (
+            group: true,
+            min: 768px,
+            max: 1023px,
+        ),
+        tablet-portrait: (
+            group: true,
+            orientation: portrait,
+            min: 768px,
+            max: 1023px,
+        ),
+        tablet-landscape: (
+            group: true,
+            orientation: landscape,
+            min: 768px,
+            max: 1023px,
+        ),
+
+        // device-width >=1024 <1200
+        laptop: (
+            group: true,
+            min: 1024px,
+            max: 1199px,
+        ),
+        laptop-portrait: (
+            group: true,
+            orientation: portrait,
+            min: 1024px,
+            max: 1199px,
+        ),
+        laptop-landscape: (
+            group: true,
+            orientation: landscape,
+            min: 1024px,
+            max: 1199px,
+        ),
+
+        // device-width >=1200
+        desktop: (
+            group: true,
+            min: 1200px,
+        ),
+        desktop-portrait: (
+            group: true,
+            orientation: portrait,
+            min: 1200px,
+        ),
+        desktop-landscape: (
+            group: true,
+            orientation: landscape,
+            min: 1200px,
+        ),
+
+        // Phones
+        iphone5: (
+            min: 320px,
+            max: 568px,
+            pixel-ratio: 2,
+            aspect-ratio: '40/71',
+        ),
+        iphone5s: iphone5,
+        iphone5c: iphone5,
+        iphonese: iphone5,
+        iphone6: (
+            min: 375px,
+            max: 667px,
+            pixel-ratio: 2,
+        ),
+        iphone6s: iphone6,
+        iphone7: iphone6,
+        iphone8: iphone6,
+        iphone6plus: (
+            min: 414px,
+            max: 736px,
+            pixel-ratio: 3,
+        ),
+        iphone6splus: iphone6plus,
+        iphone7plus: iphone6plus,
+        iphone8plus: iphone6plus,
+        iphonex: (
+            min: 375px,
+            max: 812px,
+            pixel-ratio: 3,
+        ),
+        iphonexs: iphonex,
+        iphonexr: (
+            min: 414px,
+            max: 896px,
+            pixel-ratio: 2,
+        ),
+        iphonexsmax: (
+            min: 414px,
+            max: 896px,
+            pixel-ratio: 3,
+        ),
+
+        // Tablets
+        ipad1: (
+            min: 768px,
+            max: 1024px,
+            pixel-ratio: 1,
+        ),
+        ipad2: ipad1,
+        ipadmini: ipad1,
+        ipadair: ipad1,
+        ipad3: (
+            min: 768px,
+            max: 1024px,
+            pixel-ratio: 2,
+        ),
+        ipad4: ipad3,
+        ipadpro9: ipad3,
+        ipadpro10: (
+            min: 834px,
+            max: 1112px,
+            pixel-ratio: 2,
+        ),
+        ipadpro11: (
+            min: 834px,
+            max: 1194px,
+            pixel-ratio: 2,
+        ),
+        ipadpro12: (
+            min: 1024px,
+            max: 1366px,
+            pixel-ratio: 2,
+        ),
+    );
+
+    $ms-devices: false !default;
+    @if type-of($ms-devices) == 'map' {
+        $devices: map-merge($devices, $ms-devices);
+    }
+
+    @return $devices;
+}
+
+//
+// Utils
+//
+@function _ms-str-split($string, $separator) {
+    $split-arr: ();
+    $index: str-index($string, $separator);
+
+    @while $index != null {
+        $item: str-slice($string, 1, $index - 1);
+        $split-arr: append($split-arr, $item);
+        $string: str-slice($string, $index + 1);
+        $index : str-index($string, $separator);
+    }
+    $split-arr: append($split-arr, $string);
+
+    @return $split-arr;
+}
+
+@function _ms-list-reverse($list, $recursive: false) {
+    $result: ();
+    @for $i from length($list)*-1 through -1 {
+        @if type-of(nth($list, abs($i))) == list and $recursive {
+            $result: append($result, _ms-list-reverse(nth($list, abs($i)), $recursive));
+        } @else {
+            $result: append($result, nth($list, abs($i)));
+        }
+    }
+
+    @return $result;
+}
+
+//
+// Expression handler
+//
+@mixin _ms-expr($list) {
+    $exprs: '';
+    @each $args in $list {
+        $media-type: 'only screen';
+        @if map-has-key($args, 'media-type') {
+            $media-type: map-get($args, 'media-type');
+            $args: map-remove($args, 'media-type');
+        }
+        $expr: $media-type;
+
+        @each $key, $value in $args {
+            @if $value {
+                $expr: "#{$expr} and (#{$key}: #{$value})";
+            }
+        }
+
+        @if $exprs == '' {
+            $exprs: $expr;
+        } @else {
+            $exprs: "#{$exprs}, #{$expr}";
+        }
+    }
+
+    @media #{$exprs} {
+        @content;
+    }
+}
+
+//
+// Device by name handler
+//
+@mixin _ms-device($min, $max, $pixel-ratio: 1, $aspect-ratio: false, $orientation: false) {
+    $args: ();
+
+    @if $orientation == portrait or $orientation == false {
+        $args: append($args, (
+            width: $min,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            -webkit-device-pixel-ratio: $pixel-ratio
+        ));
+        $args: append($args, (
+            width: $min,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            resolution: if($pixel-ratio, #{$pixel-ratio}dppx, false)
+        ));
+        $args: append($args, (
+            orientation: $orientation,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            -webkit-device-pixel-ratio: $pixel-ratio
+        ));
+        $args: append($args, (
+            orientation: $orientation,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            resolution: if($pixel-ratio, #{$pixel-ratio}dppx, false)
+        ));
+    }
+
+    @if $orientation == landscape or $orientation == false {
+        @if $aspect-ratio {
+            $aspect-ratio-list: _ms-list-reverse(_ms-str-split($aspect-ratio, '/'));
+            $aspect-ratio: false;
+            @each $value in $aspect-ratio-list {
+                @if $aspect-ratio {
+                    $aspect-ratio: "#{$aspect-ratio}/#{$value}";
+                } @else {
+                    $aspect-ratio: $value;
+                }
+            }
+        }
+
+        $args: append($args, (
+            width: $max,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            -webkit-device-pixel-ratio: $pixel-ratio
+        ));
+        $args: append($args, (
+            width: $max,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            resolution: if($pixel-ratio, #{$pixel-ratio}dppx, false)
+        ));
+        $args: append($args, (
+            orientation: $orientation,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            -webkit-device-pixel-ratio: $pixel-ratio
+        ));
+        $args: append($args, (
+            orientation: $orientation,
+            device-width: $min,
+            device-height: $max,
+            device-aspect-ratio: $aspect-ratio,
+            resolution: if($pixel-ratio, #{$pixel-ratio}dppx, false)
+        ));
+
+        // for chrome/firefox emulator
+        $args: append($args, (
+            width: $max,
+            device-width: $max,
+            device-height: $min,
+            device-aspect-ratio: $aspect-ratio,
+            -webkit-device-pixel-ratio: $pixel-ratio
+        ));
+        $args: append($args, (
+            width: $max,
+            device-width: $max,
+            device-height: $min,
+            device-aspect-ratio: $aspect-ratio,
+            resolution: if($pixel-ratio, #{$pixel-ratio}dppx, false)
+        ));
+        $args: append($args, (
+            orientation: $orientation,
+            device-width: $max,
+            device-height: $min,
+            device-aspect-ratio: $aspect-ratio,
+            -webkit-device-pixel-ratio: $pixel-ratio
+        ));
+        $args: append($args, (
+            orientation: $orientation,
+            device-width: $max,
+            device-height: $min,
+            device-aspect-ratio: $aspect-ratio,
+            resolution: if($pixel-ratio, #{$pixel-ratio}dppx, false)
+        ));
+    }
+
+    @include _ms-expr($args) {
+        @content;
+    }
+}
+
+//
+// Group of devices handler
+//
+@mixin _ms-device-group($min, $max, $pixel-ratio: 1, $aspect-ratio: false, $orientation: false) {
+    $args: append((), (
+        orientation: $orientation,
+        min-device-width: $min,
+        max-device-width: $max,
+    ));
+
+    @if $orientation == landscape or $orientation == false {
+        //// for chrome emulator
+        //$args: append($args, (
+        //        orientation: $orientation,
+        //        min-height: $min,
+        //        max-height: $max,
+        //        //min-device-height: $min,
+        //        //max-device-height: $max,
+        //));
+    }
+
+    @include _ms-expr($args) {
+        @content;
+    }
+}
+
+//
+// Device
+//
+@mixin device($keys, $orientation: false) {
+    $devices: _ms-list-devices();
+
+    @if type_of($keys) == 'string' {
+        $keys: ($keys);
+    }
+    @each $key in $keys {
+        $key: unquote(to-lower-case($key));
+
+        @if map-has-key($devices, $key) {
+            $args: map-get($devices, $key);
+            @if type-of($args) == 'string' {
+                $args: map-get($devices, $args);
+            }
+
+            //
+            $width: map-get($args, width);
+            $width: if($width, $width, map-get($args, min));
+            $height: map-get($args, height);
+            $height: if($height, $height, map-get($args, max));
+            $orientation: if(map-get($args, orientation), map-get($args, orientation), $orientation);
+
+            // Group of devices
+            @if map-get($args, group) {
+                @include _ms-device-group(
+                    $orientation: $orientation,
+                    $min: $width,
+                    $max: $height
+                ) {
+                    @content;
+                }
+            }
+
+            // Device by name
+            @else {
+                @include _ms-device(
+                    $orientation: $orientation,
+                    $min: $width,
+                    $max: $height,
+                    $aspect-ratio: map-get($args, aspect-ratio),
+                    $pixel-ratio: map-get($args, pixel-ratio)
+                ) {
+                    @content;
+                }
+            }
+        }
+    }
+}
+
+//
+// Screens
+//
+@mixin screen($min, $max, $orientation: false) {
+    @include _ms-expr(append((), (
+        min-width: $min,
+        max-width: $max,
+        orientation: $orientation
+    ))) {
+        @content;
+    }
+}
+@mixin max-screen($max) {
+    @include _ms-expr(append((), (
+        max-width: $max
+    ))) {
+        @content;
+    }
+}
+@mixin min-screen($min) {
+    @include _ms-expr(append((), (
+        min-width: $min
+    ))) {
+        @content;
+    }
+}
+@mixin screen-height($min, $max, $orientation: false) {
+    @include _ms-expr(append((), (
+        min-height: $min,
+        max-height: $max,
+        orientation: $orientation
+    ))) {
+        @content;
+    }
+}
+@mixin max-screen-height($max) {
+    @include _ms-expr(append((), (
+        max-height: $max
+    ))) {
+        @content;
+    }
+}
+@mixin min-screen-height($min) {
+    @include _ms-expr(append((), (
+        min-height: $min
+    ))) {
+        @content;
+    }
+}
+
+//
+// Orientations
+//
+@mixin landscape() {
+    @include _ms-expr(append((), (
+        orientation: landscape
+    ))) {
+        @content;
+    }
+}
+@mixin portrait() {
+    @include _ms-expr(append((), (
+        orientation: portrait
+    ))) {
+        @content;
+    }
+}

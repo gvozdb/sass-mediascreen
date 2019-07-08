@@ -1,0 +1,5 @@
+{
+  "name": "sass-mediascreen",
+  "description": "Sass media queries mixins for checking group of devices (mobile, tablet, laptop, desktop) or device by name (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.",
+  "tags": ["css", "sass", "scss", "compass", "mixins", "media", "screen", "queries", "mediascreen", "media-screen", "mediaquery", "media-query", "mediaqueries", "media-queries", "responsive", "adaptive"]
+}
