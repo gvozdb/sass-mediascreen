@@ -392,6 +392,8 @@
             $height: if($height, $height, map-get($args, max));
             $orientation: if(map-get($args, orientation), map-get($args, orientation), $orientation);
 
+            // TODO: Add min-width, max-width, min-height and max-height
+
             // Group of devices
             @if map-get($args, group) {
                 @include _ms-device-group(

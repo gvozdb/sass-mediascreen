@@ -1,11 +1,33 @@
-# sass-mediascreen
+# Sass MediaScreen
 
 [![Version](https://img.shields.io/npm/v/sass-mediascreen.svg)](http://npm.im/sass-mediascreen)
 [![Downloads](https://img.shields.io/npm/dm/sass-mediascreen.svg)](http://npm.im/sass-mediascreen)
 
-Sass **media queries mixins** for checking **group of devices** (mobile, tablet, laptop, desktop) or **device by name** (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.
+Mixins for checking **group of devices** (mobile, tablet, laptop, desktop) or **device by name** (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.
 
-#### [Demo](http://mediascreen.gvozdb.ru)
+
+### Important
+
+Don't check the adaptability in the browser DevTools, there are [incorrectly calculated dimensions](https://codepen.io/gvozdb/pen/bPQmvv) of the sides in the landscape orientation of the device.
+It is better to check on a real device or in a simulator (for example, xCode Simulator).
+
+Use [group-css-media-queries](https://github.com/Se7enSky/group-css-media-queries) to optimize media queries. Without it, a lot of the same `@media ...` code is generated, especially if for the sake of convenience to use the mixin `@include device()` in each selector separately. Wrapper for Gulp - [gulp-group-css-media-queries](https://github.com/avaly/gulp-group-css-media-queries).
+
+
+### Helpful Links
+
+- [Demo](http://mediascreen.gvozdb.ru)
+
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Documentation](#documentation)
+    - [Examples](#examples)
+    - [List of supported devices](#list-of-supported-devices)
+    - [Expanding the list of devices](#expanding-the-list-of-devices)
+- [Credits](#credits)
+- [License](#license)
 
 
 ## Installation
@@ -149,14 +171,22 @@ $ms-devices: (
         group: true, // group of devices
         min: 2880px,
     ),
+    pixel2xl: (
+        group: false, // specific device
+        width: 411px, // or 412px?..
+        height: 823px,
+        pixel-ratio: 3.5,
+    ),
     macbook12: (
         group: false, // specific device
+        orientation: landscape,
         width: 1440px,
         height: 900px,
         pixel-ratio: 2,
     ),
     imac27: (
         group: false, // specific device
+        orientation: landscape,
         width: 5120px,
         height: 2880px,
     ),
@@ -165,9 +195,7 @@ $ms-devices: (
 
 
 ## Credits
-- [Pavel Gvozdb][link-author]
+- [Pavel Gvozdb](https://gvozdb.ru)
 
 ## License
 This software is open-source licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-[link-author]: https://github.com/gvozdb
