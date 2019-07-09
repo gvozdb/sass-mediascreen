@@ -6,17 +6,17 @@
 Mixins for checking **group of devices** (mobile, tablet, laptop, desktop) or **device by name** (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.
 
 
+### Helpful Links
+
+- [Demo](http://mediascreen.gvozdb.ru)
+
+
 ### Important
 
 > Don't check the adaptability in the browser DevTools, there are [incorrectly calculated dimensions](https://codepen.io/gvozdb/pen/bPQmvv) of the sides in the landscape orientation of the device.
 > It is better to check on a real device or in a simulator (for example, xCode Simulator).
 
 > Use [group-css-media-queries](https://github.com/Se7enSky/group-css-media-queries) to optimize media queries. Without it, a lot of the same `@media ...` code is generated, especially if for the sake of convenience to use the mixin `@include device()` in each selector separately. Wrapper for Gulp - [gulp-group-css-media-queries](https://github.com/avaly/gulp-group-css-media-queries).
-
-
-### Helpful Links
-
-- [Demo](http://mediascreen.gvozdb.ru)
 
 
 ## Table of Contents
