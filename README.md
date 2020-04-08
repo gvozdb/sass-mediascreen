@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/sass-mediascreen.svg)](http://npm.im/sass-mediascreen)
 [![Downloads](https://img.shields.io/npm/dm/sass-mediascreen.svg)](http://npm.im/sass-mediascreen)
 
-Mixins for checking **group of devices** (mobile, tablet, laptop, desktop) or **device by name** (iPhone 5, iPhone X, iPad Pro 12.9, etc). Expandable and very simple for usage.
+Mixins for checking **group of devices** (mobile, tablet, laptop, desktop) or **device by name** (iPhone 5, iPhone X, iPhone 11 Pro Max, iPad Pro 12.9, etc). Expandable and very simple for usage.
 
 
 ### Helpful Links
@@ -61,7 +61,7 @@ It can be used like this:
 }
 @include device(iPhone6Plus iPhoneXR, landscape) {
     // landscape orientation
-    // iPhone 6+, iPhone 6s+, iPhone 7+, iPhone 8+, iPhone XR
+    // iPhone 6+, iPhone 6s+, iPhone 7+, iPhone 8+, iPhone XR, iPhone 11
 }
 @include device(iPadPro10 iPadPro11 iPadPro12) {
     // all orientations
@@ -131,9 +131,9 @@ There are also common mixins:
 - iPhone 5, 5s, 5c, SE `iphone5` `iphone5s` `iphone5c` `iphonese`
 - iPhone 6, 6s, 7, 8 `iphone6` `iphone6s` `iphone7` `iphone8`
 - iPhone 6+, 6s+, 7+, 8+ `iphone6plus` `iphone6splus` `iphone7plus` `iphone8plus`
-- iPhone X, XS `iphonex` `iphonexs`
-- iPhone XR `iphonexr`
-- iPhone XS Max `iphonexsmax`
+- iPhone X, XS, 11 Pro `iphonex` `iphonexs` `iphone11pro`
+- iPhone XR, 11 `iphonexr` `iphone11`
+- iPhone XS Max, 11 Pro Max `iphonexsmax` `iphone11promax`
 
 #### Tablets
 

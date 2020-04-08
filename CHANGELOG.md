@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3] - 2020-04-08
+
+* Added devices `iphone11` `iphone11pro` `iphone11promax`
+
 ## [1.0.2] - 2019-07-08
 
 * Added case-insensitive in device names
