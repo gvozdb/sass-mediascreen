@@ -134,6 +134,9 @@ There are also common mixins:
 - iPhone X, XS, 11 Pro `iphonex` `iphonexs` `iphone11pro`
 - iPhone XR, 11 `iphonexr` `iphone11`
 - iPhone XS Max, 11 Pro Max `iphonexsmax` `iphone11promax`
+- iPhone 12, 12 Pro, 13, 13 Pro `iphone12` `iphone12pro` `iphone13` `iphone13pro`
+- iPhone 12 mini, 13 mini `iphone12mini` `iphone13mini`
+- iPhone 12 Pro Max, 13 Pro Max `iphone12promax` `iphone13promax`
 
 #### Tablets
 

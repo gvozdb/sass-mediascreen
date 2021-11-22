@@ -1,8 +1,15 @@
 # Changelog
 
+
+## [1.0.4] - 2021-11-22
+
+* Added devices `iphone12` `iphone12mini` `iphone12pro` `iphone12promax`, `iphone13` `iphone13mini` `iphone13pro` `iphone13promax`
+
+
 ## [1.0.3] - 2020-04-08
 
 * Added devices `iphone11` `iphone11pro` `iphone11promax`
+
 
 ## [1.0.2] - 2019-07-08
 
@@ -12,11 +19,13 @@
 * The list of supported devices is included in `_ms-list-devices` function
 * Fixed `resolution` property in portrait orientation
 
+
 ## [1.0.1] - 2019-07-06
 
 * Added support for device groups
 * Added `resolution` property for device by name
 * Fixed `device-aspect-ratio` in landscape orientation
+
 
 ## [1.0.0] - 2019-07-05
 

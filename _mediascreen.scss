@@ -126,20 +126,36 @@
         iphone11pro: iphonex,
         iphone11promax: iphonexsmax,
         iphone12: (
-                min: 390px,
-                max: 844px,
-                pixel-ratio: 3,
+            min: 390px,
+            max: 844px,
+            pixel-ratio: 3,
+        ),
+        iphone12mini: (
+            min: 360px,
+            max: 780px,
+            pixel-ratio: 3,
         ),
         iphone12pro: iphone12,
         iphone12promax: (
-                min: 428px,
-                max: 926px,
-                pixel-ratio: 3,
+            min: 428px,
+            max: 926px,
+            pixel-ratio: 3,
         ),
-        iphone12mini: (
-                min: 360px,
-                max: 780px,
-                pixel-ratio: 3,
+        iphone13: (
+            min: 390px,
+            max: 844px,
+            pixel-ratio: 3,
+        ),
+        iphone13mini: (
+            min: 360px,
+            max: 780px,
+            pixel-ratio: 3,
+        ),
+        iphone13pro: iphone13,
+        iphone13promax: (
+            min: 428px,
+            max: 926px,
+            pixel-ratio: 3,
         ),
 
         // Tablets
